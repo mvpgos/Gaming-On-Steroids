@@ -53,6 +53,7 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq4:Boolean("DrawR", "Enable R Draw", true)
 					Required.Req:SubMenu("SubReq5", "Information")
 									Required.Req.SubReq5:Info("Developed my Required")
+									Required.Req.SubReq5:Info("Current Version ... " ..ver.. "")
 
 
 		--[[Required.Req:SubMenu("Data", "Get Data")
