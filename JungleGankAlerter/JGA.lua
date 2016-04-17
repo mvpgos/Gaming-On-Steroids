@@ -21,6 +21,7 @@ JGA.jungleGA:Boolean("Enabled", "Enable Jungle Gank Alerter", true)
 JGA.jungleGA:Boolean("Sc", "Silent Check?", false)
 JGA.jungleGA:Info("I1", "Silent Check = No drawing")
 JGA.jungleGA:Slider("jCh", "Range to check jungler", 2690, 300, 7000)
+JGA.jungleGA:Empty("Empty1", 0)
 JGA.jungleGA:Slider("width", "Width of the line", 8, 1, 16)
 
 JGA:Menu("Inf", "Information")
@@ -42,6 +43,10 @@ OnDraw(function(myHero)
 
 local RangeToCheck = JGA.jungleGA.jCh:Value()
 local width = JGA.jungleGA.width:Value()
+
+		if JGA.jungleGA.Sc:Value() ~= true then	
+			DrawCircle(myHero.pos, RangeToCheck, 2, 3, GoS.Yellow)
+		end
 
  if JGA.jungleGA.Enabled:Value() and ValidTarget(GotSmite, RangeToCheck) then
    		DrawLine(WorldToScreen(0, GetOrigin(myHero)).x,WorldToScreen(0, GetOrigin(myHero)).y,WorldToScreen(0, GetOrigin(GotSmite)).x,WorldToScreen(0, GetOrigin(GotSmite)).y,width,GoS.Red)
