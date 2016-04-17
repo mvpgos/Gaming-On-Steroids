@@ -36,7 +36,7 @@ JGA.jungleGA:SubMenu("Text", "JGA with text")
 
 
 JGA:Menu("Inf", "Information")
-JGA.Inf:Info("I2", "Current Version ... 0.2")
+JGA.Inf:Info("I2", "Current Version ..." ..ver.."")
 JGA.Inf:Info("I3", "Made By Required")
 JGA.Inf:Info("I4", "Upove if you liked it")
 
