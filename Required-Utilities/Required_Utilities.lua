@@ -197,7 +197,7 @@ OnTick(function(myHero)
 				baron = minion
 			end
 		end ]]-- Auto Smite soon 
-	end
+	--end
 
 
 	if Required.Req.SubReq3.SkinEnabled:Value() ~= false then
@@ -214,6 +214,7 @@ end)
 
 --[[OnObjectName(function(myHero)
 	fileHandle = io.open("Mobs_Names", "wb")
+	fileHandle:write(GetObjectName(mobs))
 end) ]]
 
 
