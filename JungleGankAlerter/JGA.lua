@@ -25,7 +25,7 @@ JGA.jungleGA:Empty("Empty1", 0)
 JGA.jungleGA:Slider("width", "Width of the line", 8, 1, 16)
 
 JGA:Menu("Inf", "Information")
-JGA.Inf:Info("I2", "Current Version ... 0.01")
+JGA.Inf:Info("I2", "Current Version ... 0.1")
 JGA.Inf:Info("I3", "Made By Required")
 JGA.Inf:Info("I4", "Upove if you liked it")
 
