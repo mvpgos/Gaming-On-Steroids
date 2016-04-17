@@ -1,5 +1,5 @@
 
-local ver = "0.4"
+local ver = "0.5"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -9,6 +9,7 @@ function AutoUpdate(data)
     end
 end
 GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Required-Utilities/Required_Utilities.version", AutoUpdate)
+
 
 
 local s = "Developed by Required"
@@ -63,6 +64,7 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq6:Boolean("ItemId4", "Get Item Slot 4's Name", false)
 									Required.Req.SubReq6:Boolean("ItemId5", "Get Item Slot 5's Name", false)
 									Required.Req.SubReq6:Boolean("ItemId6", "Get Item Slot 6's Name", false)
+									Required.Req.SubReq6:Info("Return-1", "Will Return -1 if it's empty")
 									Required.Req.SubReq6:Empty("Tesee", 0)
 									Required.Req.SubReq6:Boolean("qN", "Get Q Skill name", false)
 									Required.Req.SubReq6:Boolean("wN", "Get W Skill name", false)
@@ -70,6 +72,8 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq6:Boolean("rN", "Get R Skill name", false)
 									Required.Req.SubReq6:Empty("Tdesee", 0)
 									Required.Req.SubReq6:Boolean("MapId", "Print Map ID", false)
+									Required.Req.SubReq6:Boolean("MobsID", "Draw Mobs names", false)
+									Required.Req.SubReq6:Info("SDWW", "To Draw Names is needed vision")
 
 					Required.Req:SubMenu("SubReq5", "Information")
 									Required.Req.SubReq5:Info("c", "Developed by Required")
@@ -89,7 +93,17 @@ local LevelUpTable={
 [3]={_Q,_E,_W,_Q,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W}
 }
 
+
+
 OnDraw(function(myHero)
+
+	if Required.Req.SubReq6.MobsID:Value() then
+		for _, mobs in pairs(minionManager.objects) do
+	 		if GetDistance(mobs) <= 3291 then
+				DrawText("Name: "..GetObjectName(mobs),12,WorldToScreen(0,GetOrigin(mobs).x,GetOrigin(mobs).y,GetOrigin(mobs).z).x,WorldToScreen(1,GetOrigin(mobs).x,GetOrigin(mobs).y,GetOrigin(mobs).z).y,GoS.Pink)
+	  		end
+	 	end
+	end
 
 	if Required.Req.SubReq6.qN:Value() then
 		PrintChat(GetCastName(myHero, 0))
@@ -154,11 +168,37 @@ OnDraw(function(myHero)
 		end
 
 	end
+	--[[if dragon ~= nil and GetObjectName(dragon) == "SRU_Dragon" then
+		Gd= GetOrigin(dragon)
+		DrawText("Name: " ..dragon.."")
+	end]]
 end)
 
 OnTick(function(myHero)
 
 	--if Required.Req.Data.Datas:Value() then PrintChat(""..GetCastName(myHero, SUMMONER_2).. "") end -- dev purposes
+
+
+--[[	for i,minion in pairs(minionManager.objects) do
+		if GetTeam(minion) == 300 and IsObjectAlive(minion) then
+			if GetObjectName(minion) == "SRU_Dragon" then
+				dragon = minion
+			end
+			if GetObjectName(minion) == "SRU_Red" then
+				red = minion
+			end
+			if GetObjectName(minion) == "SRU_Blue"then
+				blue = minion
+			end
+			if GetObjectName(minion) == "SRU_RiftHerald" then
+				herald = minion
+			end
+			if GetObjectName(minion) == "SRU_Baron" then
+				baron = minion
+			end
+		end ]]-- Auto Smite soon 
+	end
+
 
 	if Required.Req.SubReq3.SkinEnabled:Value() ~= false then
 		HeroSkinChanger(myHero, Required.Req.SubReq3.SkinID:Value() - 1)
@@ -171,6 +211,10 @@ OnTick(function(myHero)
 
 	end
 end)
+
+--[[OnObjectName(function(myHero)
+	fileHandle = io.open("Mobs_Names", "wb")
+end) ]]
 
 
 
@@ -188,31 +232,32 @@ end
 
 function PersonalInfo()
 	if Required.Req.SubReq2.LFs:Value() then 
-		DrawText("LifeSteal: "..math.ceil(GetLifeSteal(myHero) * 100).. "%", 15, GetResolution().x/2+400, GetResolution().y/2, ARGB(255, 247, 8, 64))
+		DrawText("LifeSteal: "..math.ceil(GetLifeSteal(myHero) * 100).. "%", 15, GetResolution().x/2+475, GetResolution().y/2, ARGB(255, 247, 8, 64))
 	end
 
 	if Required.Req.SubReq2.SpellVamp:Value() then 
-		DrawText("SpellVamp: "..math.ceil(GetSpellVamp(myHero) * 100).. "%", 15, GetResolution().x/2+400, GetResolution().y/2+15, ARGB(255, 69, 242, 63))
+		DrawText("SpellVamp: "..math.ceil(GetSpellVamp(myHero) * 100).. "%", 15, GetResolution().x/2+475, GetResolution().y/2+15, ARGB(255, 69, 242, 63))
 	end
 
 	if Required.Req.SubReq2.DmgPen:Value() then 
-		DrawText("Armor Penetration: "..math.ceil(GetArmorPenFlat(myHero)).. "", 15, GetResolution().x/2+400, GetResolution().y/2+30, ARGB(255, 236, 206, 58))
+		DrawText("Armor Penetration: "..math.ceil(GetArmorPenFlat(myHero)).. "", 15, GetResolution().x/2+475, GetResolution().y/2+30, ARGB(255, 236, 206, 58))
 	end
 
 	if Required.Req.SubReq2.ApPen:Value() then 
-		DrawText("Magic Penetration: "..math.ceil(GetMagicPenFlat(myHero)).. "", 15, GetResolution().x/2+400, GetResolution().y/2+45, ARGB(255, 84, 229, 214))
+		DrawText("Magic Penetration: "..math.ceil(GetMagicPenFlat(myHero)).. "", 15, GetResolution().x/2+475, GetResolution().y/2+45, ARGB(255, 84, 229, 214))
 	end
 
 
 	if Required.Req.SubReq2.Gold:Value() then 
-		DrawText("Gold: "..math.ceil(GetCurrentGold(myHero)).. "", 15, GetResolution().x/2+400, GetResolution().y/2+60, ARGB(255, 232, 226, 63))
+		DrawText("Gold: "..math.ceil(GetCurrentGold(myHero)).. "", 15, GetResolution().x/2+475, GetResolution().y/2+60, ARGB(255, 232, 226, 63))
 	end
 
 	if Required.Req.SubReq2.TotalGold:Value() then 
-		DrawText("Gold: "..math.ceil(GetTotalEarnedGold(myHero)).. "", 15, GetResolution().x/2+400, GetResolution().y/2+75, ARGB(255, 245, 239, 83))
+		DrawText("Gold: "..math.ceil(GetTotalEarnedGold(myHero)).. "", 15, GetResolution().x/2+475, GetResolution().y/2+75, ARGB(255, 245, 239, 83))
 	end
 
 	if Required.Req.SubReq2.MSpeed:Value() then 
-		DrawText("Movement Speed: "..math.ceil(GetMoveSpeed(myHero)).. "", 15, GetResolution().x/2+400, GetResolution().y/2+90, ARGB(255, 75, 168, 202))
+		DrawText("Movement Speed: "..math.ceil(GetMoveSpeed(myHero)).. "", 15, GetResolution().x/2+475, GetResolution().y/2+90, ARGB(255, 75, 168, 202))
 	end
 end
+
