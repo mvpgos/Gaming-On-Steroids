@@ -2,7 +2,7 @@ local ver = "0.01"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
-        PrintChat("New AnnieGod Script Version Found " .. data)
+        PrintChat("New Version Found " .. data)
         PrintChat("Downloading update, please wait...")
         DownloadFileAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/JungleGankAlerter/JGA.lua", SCRIPT_PATH .. "JungleGankAlerter.lua", function() PrintChat(string.format("<font color=\"#FC5743\"><b>Script Downloaded succesfully. please 2x f6</b></font>")) return end)
     else
