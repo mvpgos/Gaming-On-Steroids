@@ -1,5 +1,5 @@
 local s = "Developed by Required"
-local vr = "Current Version 0.1 . 17/04/2016"
+local vr = "Current Version 0.2 . 17/04/2016"
 local Champ = MyHeroName 
 textTable = {s,vr} 
 PrintChat(textTable[1])
@@ -7,7 +7,8 @@ PrintChat(textTable[2])
 PrintChat(string.format("<font color=\"#984DD1\"><b>Thanks for using Required Utilities </b></font>"))
 
 
-local ver = "0.1"
+
+local ver = "0.2"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -17,7 +18,7 @@ function AutoUpdate(data)
     end
 end
 
-GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Required-Utilities/Required_Utilities.version", AutoUpdate)
+
 
 
 local Required = MenuConfig("REQ", "RequiredUtility")
@@ -52,8 +53,9 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq4:Boolean("DrawE", "Enable E Draw", true)
 									Required.Req.SubReq4:Boolean("DrawR", "Enable R Draw", true)
 					Required.Req:SubMenu("SubReq5", "Information")
-									Required.Req.SubReq5:Info("Developed my Required")
-									Required.Req.SubReq5:Info("Current Version ... " ..ver.. "")
+									Required.Req.SubReq5:Info("c", "Developed by Required")
+									Required.Req.SubReq5:Empty("Te", 0)
+									Required.Req.SubReq5:Info("e", "Current Version ... " ..ver.. "")
 
 
 		--[[Required.Req:SubMenu("Data", "Get Data")
