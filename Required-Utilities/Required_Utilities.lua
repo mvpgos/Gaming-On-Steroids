@@ -1,12 +1,3 @@
-local s = "Developed by Required"
-local vr = "Current Version 0.3 . 17/04/2016"
-local Champ = MyHeroName 
-textTable = {s,vr} 
-PrintChat(textTable[1])
-PrintChat(textTable[2])
-PrintChat(string.format("<font color=\"#984DD1\"><b>Thanks for using Required Utilities </b></font>"))
-
-
 
 local ver = "0.3"
 
@@ -18,6 +9,14 @@ function AutoUpdate(data)
     end
 end
 
+
+local s = "Developed by Required"
+local vr = "Current Version " ..ver.. " . 17/04/2016"
+local Champ = MyHeroName 
+textTable = {s,vr} 
+PrintChat(textTable[1])
+PrintChat(textTable[2])
+PrintChat(string.format("<font color=\"#984DD1\"><b>Thanks for using Required Utilities </b></font>"))
 
 
 
@@ -63,6 +62,14 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq6:Boolean("ItemId4", "Get Item Slot 4's Name", false)
 									Required.Req.SubReq6:Boolean("ItemId5", "Get Item Slot 5's Name", false)
 									Required.Req.SubReq6:Boolean("ItemId6", "Get Item Slot 6's Name", false)
+									Required.Req.SubReq6:Empty("Tesee", 0)
+									Required.Req.SubReq6:Boolean("qN", "Get Q Skill name", false)
+									Required.Req.SubReq6:Boolean("wN", "Get W Skill name", false)
+									Required.Req.SubReq6:Boolean("eN", "Get E Skill name", false)
+									Required.Req.SubReq6:Boolean("rN", "Get R Skill name", false)
+									Required.Req.SubReq6:Empty("Tdesee", 0)
+									Required.Req.SubReq6:Boolean("MapId", "Print Map ID", false)
+
 					Required.Req:SubMenu("SubReq5", "Information")
 									Required.Req.SubReq5:Info("c", "Developed by Required")
 									Required.Req.SubReq5:Empty("Te", 0)
@@ -82,6 +89,23 @@ local LevelUpTable={
 }
 
 OnDraw(function(myHero)
+
+	if Required.Req.SubReq6.qN:Value() then
+		PrintChat(GetCastName(myHero, 0))
+	end
+	if Required.Req.SubReq6.wN:Value() then
+		PrintChat(GetCastName(myHero, 1))
+	end
+	if Required.Req.SubReq6.eN:Value() then
+		PrintChat(GetCastName(myHero, 2))
+	end
+	if Required.Req.SubReq6.rN:Value() then
+		PrintChat(GetCastName(myHero, 3))
+	end
+
+	if Required.Req.SubReq6.MapId:Value() then
+		PrintChat(GetMapID())
+	end
 
 	local myHeroPos = GetOrigin(myHero)
 
