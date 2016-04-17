@@ -1,5 +1,5 @@
 local s = "Developed by Required"
-local vr = "Current Version 0.2 . 17/04/2016"
+local vr = "Current Version 0.3 . 17/04/2016"
 local Champ = MyHeroName 
 textTable = {s,vr} 
 PrintChat(textTable[1])
@@ -8,7 +8,7 @@ PrintChat(string.format("<font color=\"#984DD1\"><b>Thanks for using Required Ut
 
 
 
-local ver = "0.2"
+local ver = "0.3"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -52,10 +52,22 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq4:Boolean("DrawW", "Enable W Draw", true)
 									Required.Req.SubReq4:Boolean("DrawE", "Enable E Draw", true)
 									Required.Req.SubReq4:Boolean("DrawR", "Enable R Draw", true)
+					Required.Req:SubMenu("SubReq6", "For Developers")
+									Required.Req.SubReq6:Boolean("xyz", "Show XYZ Pos", false)
+									Required.Req.SubReq6:Boolean("GCN1", "Get Summoner 1 Name", false)
+									Required.Req.SubReq6:Boolean("GCN2", "Get Summoner 2 Name", false)
+									Required.Req.SubReq6:Empty("Tese", 0)
+									Required.Req.SubReq6:Boolean("ItemId1", "Get Item Slot 1's Name", false)
+									Required.Req.SubReq6:Boolean("ItemId2", "Get Item Slot 2's Name", false)
+									Required.Req.SubReq6:Boolean("ItemId3", "Get Item Slot 3's Name", false)
+									Required.Req.SubReq6:Boolean("ItemId4", "Get Item Slot 4's Name", false)
+									Required.Req.SubReq6:Boolean("ItemId5", "Get Item Slot 5's Name", false)
+									Required.Req.SubReq6:Boolean("ItemId6", "Get Item Slot 6's Name", false)
 					Required.Req:SubMenu("SubReq5", "Information")
 									Required.Req.SubReq5:Info("c", "Developed by Required")
 									Required.Req.SubReq5:Empty("Te", 0)
 									Required.Req.SubReq5:Info("e", "Current Version ... " ..ver.. "")
+
 
 
 		--[[Required.Req:SubMenu("Data", "Get Data")
@@ -70,6 +82,38 @@ local LevelUpTable={
 }
 
 OnDraw(function(myHero)
+
+	local myHeroPos = GetOrigin(myHero)
+
+	if Required.Req.SubReq6.xyz:Value() then
+	DrawText(string.format("x,y,z = %f; %f; %f", myHeroPos.x, myHeroPos.y, myHeroPos.z),12,0,400,0xff00ff00);
+	end
+
+	if Required.Req.SubReq6.GCN1:Value() then
+		PrintChat(GetCastName(myHero, SUMMONER_1))
+	end
+	if Required.Req.SubReq6.GCN2:Value() then
+		PrintChat(GetCastName(myHero, SUMMONER_2))
+	end
+
+	if Required.Req.SubReq6.ItemId1:Value() then
+		PrintChat(GetItemID(myHero, 6))
+	end
+	if Required.Req.SubReq6.ItemId2:Value() then
+		PrintChat(GetItemID(myHero, 7))
+	end
+	if Required.Req.SubReq6.ItemId3:Value() then
+		PrintChat(GetItemID(myHero, 8))
+	end
+	if Required.Req.SubReq6.ItemId4:Value() then
+		PrintChat(GetItemID(myHero, 9))
+	end
+	if Required.Req.SubReq6.ItemId5:Value() then
+		PrintChat(GetItemID(myHero, 10))
+	end
+	if Required.Req.SubReq6.ItemId6:Value() then
+		PrintChat(GetItemID(myHero, 11))
+	end
 
 	if Required.Req.SubReq4.DrawingsEnabled:Value() then
 		if Required.Req.SubReq4.DrawQ:Value() then  DrawCircle(myHero.pos, GetCastRange(myHero, 0), 1, 5, ARGB(255, 68, 219, 121)) end
