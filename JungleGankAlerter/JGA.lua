@@ -1,4 +1,4 @@
-local ver = "0.01"
+local ver = "0.1"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -47,3 +47,6 @@ local width = JGA.jungleGA.width:Value()
    		DrawLine(WorldToScreen(0, GetOrigin(myHero)).x,WorldToScreen(0, GetOrigin(myHero)).y,WorldToScreen(0, GetOrigin(GotSmite)).x,WorldToScreen(0, GetOrigin(GotSmite)).y,width,GoS.Red)
  end
 end)
+
+
+PrintChat(string.format("<font color=\"#984DD1\"><b>Thanks for using Jungle Gank Alerter</b></font>"))
