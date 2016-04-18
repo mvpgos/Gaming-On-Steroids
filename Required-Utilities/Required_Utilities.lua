@@ -329,7 +329,7 @@ local XyUp = 0
 
 local SmiteToUse = true
 
-	if GetCastName(myHero,SUMMONER_1):lower():find("summonerSmite") or GetCastName(myHero,SUMMONER_1):lower():find("S5_SummonerSmitePlayerGanker") or GetCastName(myHero,SUMMONER_1):lower():find("S5_SummonerSmiteDuel")  then
+	if GetCastName(myHero,SUMMONER_1):lower():find("summonersmite") or GetCastName(myHero,SUMMONER_1):lower():find("S5_SummonerSmitePlayerGanker") or GetCastName(myHero,SUMMONER_1):lower():find("S5_SummonerSmiteDuel")  then
 				SmiteMinion = SUMMONER_1
 			elseif GetCastName(myHero,SUMMONER_2):lower():find("summonersmite") or GetCastName(myHero,SUMMONER_2):lower():find("S5_SummonerSmitePlayerGanker") or GetCastName(myHero,SUMMONER_2):lower():find("S5_SummonerSmiteDuel")  then
 				SmiteMinion = SUMMONER_2
