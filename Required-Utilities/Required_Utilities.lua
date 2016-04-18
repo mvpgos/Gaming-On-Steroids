@@ -226,6 +226,18 @@ end)
 
 
 OnTick(function(myHero)
+	local GTC = GetTickCount()
+	local XyUp = 0
+
+
+	if (XyUp + 250) < GTC then -- Tick count for smite
+		if SmiteToUse == true then
+			SmiteToUse = false
+		elseif SmiteToUse == false then
+			SmiteToUse = true
+		end
+	XyUp = GTC
+	end
 	SmiteDamageOnMinion = (({[1]=390,[2]=410,[3]=430,[4]=450,[5]=480,[6]=510,[7]=540,[8]=570,[9]=600,[10]=640,[11]=680,[12]=720,[13]=760,[14]=800,[15]=850,[16]=900,[17]=950,[18]=1000})[GetLevel(myHero)])
 	AutoSmite()
 
@@ -313,18 +325,7 @@ end
 
 function AutoSmite()
 
-local GTC = GetTickCount()
-local XyUp = 0
 
-
-	if (XyUp + 250) < GTC then -- Tick count for smite
-		if SmiteToUse == true then
-			SmiteToUse = false
-		elseif SmiteToUse == false then
-			SmiteToUse = true
-		end
-	XyUp = GTC
-	end
 
 
 local SmiteToUse = true
