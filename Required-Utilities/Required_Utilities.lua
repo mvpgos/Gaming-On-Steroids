@@ -1,5 +1,5 @@
 
-local ver = "0.5"
+local ver = "0.6"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -42,6 +42,10 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq2:Boolean("Gold", "Show Gold", true)
 									Required.Req.SubReq2:Boolean("TotalGold", "Show Gold earned since start", true)
 									Required.Req.SubReq2:Boolean("MSpeed", "Show Movement Speed", true)
+					Required.Req:SubMenu("SubReq7", "Wards Positions")
+									Required.Req.SubReq7:Boolean("Reds", "Show very important wards", true)
+									Required.Req.SubReq7:Boolean("Yellows", "Show important wards", true)
+									Required.Req.SubReq7:Boolean("Greens", "Show less important wards", true)
 					Required.Req:SubMenu("SubReq3", "Skin Changer")
 									Required.Req.SubReq3:Boolean("SkinEnabled", "Enable Skin Changer", true)
 									Required.Req.SubReq3:Empty("Empty3", 0)
@@ -96,7 +100,46 @@ local LevelUpTable={
 
 
 OnDraw(function(myHero)
+if Required.Req.ReqYes:Value() then
 
+	if Required.Req.SubReq7.Reds:Value() then 
+		DrawCircle(8292, 50.1327870, 10208, 39, 3, 100, ARGB(255,245,61,61))
+		DrawCircle(4292, -68.657822, 9776, 39, 3, 100, ARGB(255,245,61,61))
+		DrawCircle(6524, 50.538010, 9498, 39, 3, 100, ARGB(255,245,61,61))
+		DrawCircle(4462, 56.848400, 11788, 39, 3, 100, ARGB(255,245,61,61))
+		DrawCircle(6556, 48.527000, 4624, 39, 3, 100, ARGB(255,245,61,61))
+		DrawCircle(10426, 50.178398, 3038, 39, 3, 100, ARGB(255,245,61,61))
+		DrawCircle(10658, -62.810200, 5094, 39, 3, 100, ARGB(255,245,61,61))
+		DrawCircle(8098, 53.413593, 5342, 39, 3, 100, ARGB(255,245,61,61))
+	end
+
+	if Required.Req.SubReq7.Yellows:Value() then
+	    DrawCircle(2232, 52.838100, 13338, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(1296, 52.838100, 12446, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(2222, 52.420059, 9888, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(3392, 51.512508, 8894, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(2982, 51.854782, 7358, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(12002, 51.854782, 7358, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(12510, 51.729401, 5172, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(13230, 51.366901, 2210, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(12652, 52.011086, 1630, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(8502, 51.561283, 4790, 39, 3, 100, ARGB(255,239,245,61))
+	    DrawCircle(6272, 54.161331, 10152, 39, 3, 100, ARGB(255,239,245,61))
+	end 
+
+	if Required.Req.SubReq7.Greens:Value() then
+		DrawCircle(4770, 50.766403, 7130, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(5166, -45.305595, 8520, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(7004, 54.678485, 11366, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(9322, 54.260986, 11440, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(9974, 51.716484, 7798, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(7076, 52.574959, 3118, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(5548, 51.418839, 3532, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(9830, 21.151115, 6474, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(8156, 56.476799, 11794, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(8432, -71.240601, 6474, 39, 3, 100, ARGB(255,61,245,67))
+		DrawCircle(6524, -70.806824, 8296, 39, 3, 100, ARGB(255,61,245,67))
+	end
 	if Required.Req.SubReq6.MobsID:Value() then
 		for _, mobs in pairs(minionManager.objects) do
 	 		if GetDistance(mobs) <= 3291 then
@@ -172,6 +215,7 @@ OnDraw(function(myHero)
 		Gd= GetOrigin(dragon)
 		DrawText("Name: " ..dragon.."")
 	end]]
+end
 end)
 
 OnTick(function(myHero)
@@ -211,11 +255,6 @@ OnTick(function(myHero)
 
 	end
 end)
-
---[[OnObjectName(function(myHero)
-	fileHandle = io.open("Mobs_Names", "wb")
-	fileHandle:write(GetObjectName(mobs))
-end) ]]
 
 
 
