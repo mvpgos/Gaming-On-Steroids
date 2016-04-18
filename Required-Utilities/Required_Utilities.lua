@@ -1,5 +1,5 @@
 
-local ver = "0.6"
+local ver = "0.7"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -13,12 +13,14 @@ GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Stero
 
 
 local s = "Developed by Required"
-local vr = "Current Version " ..ver.. " . 17/04/2016"
+local vr = "Current Version " ..ver.. " . 18/04/2016"
 local Champ = MyHeroName 
 textTable = {s,vr} 
 PrintChat(textTable[1])
 PrintChat(textTable[2])
 PrintChat(string.format("<font color=\"#984DD1\"><b>Thanks for using Required Utilities </b></font>"))
+
+			
 
 
 
@@ -46,6 +48,13 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq7:Boolean("Reds", "Show very important wards", true)
 									Required.Req.SubReq7:Boolean("Yellows", "Show important wards", true)
 									Required.Req.SubReq7:Boolean("Greens", "Show less important wards", true)
+					Required.Req:SubMenu("SubReq8", "Auto Smite")
+									Required.Req.SubReq8:Boolean("AutoSmite", "Enable Auto Smite", true)
+									Required.Req.SubReq8:Boolean("AutoSmite2", "Smite Blue", true)
+									Required.Req.SubReq8:Boolean("AutoSmite3", "Smite Red", true)
+									Required.Req.SubReq8:Boolean("AutoSmite4", "Smite Baron", true)
+									Required.Req.SubReq8:Boolean("AutoSmite5", "Smite Dragon", true)
+									Required.Req.SubReq8:Boolean("AutoSmite6", "Smite Herald", true)
 					Required.Req:SubMenu("SubReq3", "Skin Changer")
 									Required.Req.SubReq3:Boolean("SkinEnabled", "Enable Skin Changer", true)
 									Required.Req.SubReq3:Empty("Empty3", 0)
@@ -211,37 +220,37 @@ if Required.Req.ReqYes:Value() then
 		end
 
 	end
-	--[[if dragon ~= nil and GetObjectName(dragon) == "SRU_Dragon" then
-		Gd= GetOrigin(dragon)
-		DrawText("Name: " ..dragon.."")
-	end]]
 end
 end)
 
+
+
 OnTick(function(myHero)
+	SmiteDamageOnMinion = (({[1]=390,[2]=410,[3]=430,[4]=450,[5]=480,[6]=510,[7]=540,[8]=570,[9]=600,[10]=640,[11]=680,[12]=720,[13]=760,[14]=800,[15]=850,[16]=900,[17]=950,[18]=1000})[GetLevel(myHero)])
+	AutoSmite()
 
 	--if Required.Req.Data.Datas:Value() then PrintChat(""..GetCastName(myHero, SUMMONER_2).. "") end -- dev purposes
 
 
---[[	for i,minion in pairs(minionManager.objects) do
+	for i,minion in pairs(minionManager.objects) do
 		if GetTeam(minion) == 300 and IsObjectAlive(minion) then
 			if GetObjectName(minion) == "SRU_Dragon" then
-				dragon = minion
+				Dragon = minion
 			end
 			if GetObjectName(minion) == "SRU_Red" then
-				red = minion
+				Red = minion
 			end
 			if GetObjectName(minion) == "SRU_Blue"then
-				blue = minion
+				Blue = minion
 			end
 			if GetObjectName(minion) == "SRU_RiftHerald" then
-				herald = minion
+				Herald = minion
 			end
 			if GetObjectName(minion) == "SRU_Baron" then
-				baron = minion
+				Baron = minion
 			end
-		end ]]-- Auto Smite soon 
-	--end
+		end  -- Auto Smite soon 
+	end
 
 
 	if Required.Req.SubReq3.SkinEnabled:Value() ~= false then
@@ -301,3 +310,68 @@ function PersonalInfo()
 	end
 end
 
+
+function AutoSmite()
+
+local GTC = GetTickCount()
+local XyUp = 0
+
+
+	if (XyUp + 250) < GTC then -- Tick count for smite
+		if SmiteToUse == true then
+			SmiteToUse = false
+		elseif SmiteToUse == false then
+			SmiteToUse = true
+		end
+	XyUp = GTC
+	end
+
+
+local SmiteToUse = true
+
+	if GetCastName(myHero,SUMMONER_1):lower():find("summonerSmite") or GetCastName(myHero,SUMMONER_1):lower():find("S5_SummonerSmitePlayerGanker") or GetCastName(myHero,SUMMONER_1):lower():find("S5_SummonerSmiteDuel")  then
+				SmiteMinion = SUMMONER_1
+			elseif GetCastName(myHero,SUMMONER_2):lower():find("summonersmite") or GetCastName(myHero,SUMMONER_2):lower():find("S5_SummonerSmitePlayerGanker") or GetCastName(myHero,SUMMONER_2):lower():find("S5_SummonerSmiteDuel")  then
+				SmiteMinion = SUMMONER_2
+			else return 
+	end
+
+	--[[							Required.Req.SubReq8("AutoSmite2", "Smite Blue", true)
+									Required.Req.SubReq8("AutoSmite3", "Smite Red", true)
+									Required.Req.SubReq8("AutoSmite4", "Smite Baron", true)
+									Required.Req.SubReq8("AutoSmite5", "Smite Dragon", true)
+									Required.Req.SubReq8("AutoSmite6", "Smite Herald", true)]]
+if SmiteToUse == true then
+	if Required.Req.ReqYes:Value() then
+		if Required.Req.SubReq8.AutoSmite:Value() then
+			if CanUseSpell(myHero,SmiteMinion) == READY then
+					if Dragon ~= nil and GetObjectName(Dragon) == "SRU_Dragon" and ValidTarget(Dragon, 750) and Required.Req.SubReq8.AutoSmite5:Value() then
+						if GetCurrentHP(Dragon) <= SmiteDamageOnMinion then
+							CastTargetSpell(Dragon,SmiteMinion)
+						end
+					end
+					if Red ~= nil and GetObjectName(Red) == "SRU_Red" and ValidTarget(Red, 750) and Required.Req.SubReq8.AutoSmite3:Value() then
+						if GetCurrentHP(Red) <= SmiteDamageOnMinion then
+							CastTargetSpell(Red,SmiteMinion)
+						end
+					end
+					if Herald ~= nil and GetObjectName(Herald) == "SRU_RiftHerald" and ValidTarget(Herald, 750) and Required.Req.SubReq8.AutoSmite6:Value() then
+						if GetCurrentHP(Herald) <= SmiteDamageOnMinion then
+							CastTargetSpell(Herald,SmiteMinion)
+						end
+					end
+					if Baron ~= nil and GetObjectName(Baron) == "SRU_Baron" and ValidTarget(Baron, 750) and Required.Req.SubReq8.AutoSmite4:Value() then
+						if GetCurrentHP(Baron) <= SmiteDamageOnMinion then
+							CastTargetSpell(Baron,SmiteMinion)
+						end
+					end
+					if Blue ~= nil and GetObjectName(Blue) == "SRU_Blue" and ValidTarget(Blue, 750) and Required.Req.SubReq8.AutoSmite2:Value() then
+						if GetCurrentHP(Blue) <= SmiteDamageOnMinion then
+							CastTargetSpell(Blue,SmiteMinion)
+						end
+					end
+			end
+		end
+	end
+end
+end
