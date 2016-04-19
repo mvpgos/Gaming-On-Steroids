@@ -83,9 +83,13 @@ Required:Menu("Req", "Required Utility")
 									Required.Req.SubReq6:Info("Return-1", "Will Return -1 if it's empty")
 									Required.Req.SubReq6:Empty("Tesee", 0)
 									Required.Req.SubReq6:Boolean("qN", "Get Q Skill name", false)
+									Required.Req.SubReq6:Boolean("qR", "Get Q Range", false)
 									Required.Req.SubReq6:Boolean("wN", "Get W Skill name", false)
+									Required.Req.SubReq6:Boolean("wR", "Get Q Range", false)
 									Required.Req.SubReq6:Boolean("eN", "Get E Skill name", false)
+									Required.Req.SubReq6:Boolean("eR", "Get Q Range", false)
 									Required.Req.SubReq6:Boolean("rN", "Get R Skill name", false)
+									Required.Req.SubReq6:Boolean("rR", "Get Q Range", false)
 									Required.Req.SubReq6:Empty("Tdesee", 0)
 									Required.Req.SubReq6:Boolean("MapId", "Print Map ID", false)
 									Required.Req.SubReq6:Boolean("MobsID", "Draw Mobs names", false)
@@ -171,6 +175,22 @@ if Required.Req.ReqYes:Value() then
 	end
 	if Required.Req.SubReq6.rN:Value() then
 		PrintChat(GetCastName(myHero, 3))
+	end
+
+	if Required.Req.SubReq6.qR:Value() then
+		PrintChat(GetCastRange(myHero, 0))
+	end
+
+	if Required.Req.SubReq6.wR:Value() then
+		PrintChat(GetCastRange(myHero, 1))
+	end
+
+	if Required.Req.SubReq6.eR:Value() then
+		PrintChat(GetCastRange(myHero, 2))
+	end
+
+	if Required.Req.SubReq6.rR:Value() then
+		PrintChat(GetCastRange(myHero, 3))
 	end
 
 	if Required.Req.SubReq6.MapId:Value() then
