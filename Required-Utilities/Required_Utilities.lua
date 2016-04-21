@@ -1,5 +1,5 @@
 
-local ver = "0.8"
+local ver = "0.9"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -13,12 +13,12 @@ GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Stero
 
 
 local s = "Developed by Required"
-local vr = "Current Version " ..ver.. " . 19/04/2016"
+local vr = "Current Version " ..ver.. " . 21/04/2016"
 local Champ = MyHeroName 
 textTable = {s,vr} 
 PrintChat(textTable[1])
 PrintChat(textTable[2])
-PrintChat(string.format("<font color=\"#984DD1\"><b>Thanks for using Required Utilities </b></font>"))
+
 
             
 
@@ -46,13 +46,18 @@ Required:Menu("Req", "Required Utility")
                                     Required.Req.SubReq2:Boolean("MSpeed", "Show Movement Speed", true)
                     Required.Req:SubMenu("SubReq7", "Wards Positions")
                                     Required.Req.SubReq7:Boolean("Reds", "Show very important wards", true)
+                                    Required.Req.SubReq7:Boolean("WardReds", "Ward Red circles", false)
+                                    Required.Req.SubReq7:Empty("Empty23", 0)
                                     Required.Req.SubReq7:Boolean("Yellows", "Show important wards", true)
+                                    Required.Req.SubReq7:Boolean("WardYellow", "Ward Yellow circles", false)
+                                    Required.Req.SubReq7:Empty("Empty223", 0)
                                     Required.Req.SubReq7:Boolean("Greens", "Show less important wards", true)
-                    Required.Req:SubMenu("SubReq9", "Item Activator")
-                    				Required.Req.SubReq9:Info("Sdw", "If below is off, Cast with T")
+                                    Required.Req.SubReq7:Boolean("WardGreen", "Ward Green circles", false)
+                    Required.Req:SubMenu("SubReq9", "Item Activator") 
                     				Required.Req.SubReq9:Boolean("OfAct", "Offensive Items Activator", true)
                     				Required.Req.SubReq9:Boolean("DefAct", "Deffensive Items Activator", true)
                     				Required.Req.SubReq9:Info("s", "")
+                    				Required.Req.SubReq9:Info("Sdw", "If below is off, Cast with T")
                     				Required.Req.SubReq9:Boolean("OnCombo", "Only in combo", false)
                     				Required.Req.SubReq9:Boolean("OnHarass", "Only in harass", false)
                                     Required.Req.SubReq9:KeyBinding("itemact", "Item Activator", string.byte("T"))
@@ -118,6 +123,7 @@ local LevelUpTable={
 
 [3]={_Q,_E,_W,_Q,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W}
 }
+
 
 
 
@@ -245,7 +251,7 @@ if Required.Req.ReqYes:Value() then
         if Required.Req.SubReq4.DrawR:Value() then  DrawCircle(myHero.pos, GetCastRange(myHero, 3), 1, 5, ARGB(255, 227, 115, 84)) end
     end
 
-    --DrawCircle(myHero.pos, 670, 1, 5, ARGB(255, 227, 115, 84)) 
+    DrawCircle(myHero.pos, 670, 1, 5, ARGB(255, 227, 115, 84)) 
 
     if Required.Req.ReqYes:Value() then
         if Required.Req.SubReq2.Self:Value() then
@@ -257,12 +263,97 @@ end
 end)
 
 
+local RedWards={
+    [1]={Vector(8292, 50.1327870, 10208), false},
+    [2]={Vector(4292, -68.657822, 9776), false},
+    [3]={Vector(6524, 50.538010, 9498), false},
+    [4]={Vector(4462, 56.848400, 11788), false},
+    [5]={Vector(6556, 48.527000, 4624), false},
+    [6]={Vector(10426, 50.178398, 3038), false},
+    [7]={Vector(10658, -62.810200, 5094), false},
+    [8]={Vector(8098, 53.413593, 5342), false}
+}
+
+local YellowWards={
+    [1]={Vector(2232, 52.838100, 13338), false},
+    [2]={Vector(1296, 52.838100, 12446), false},
+    [3]={Vector(2222, 52.420059, 9888), false},
+    [4]={Vector(3392, 51.512508, 8894), false},
+    [5]={Vector(2982, 51.854782, 7358), false},
+    [6]={Vector(12002, 51.854782, 7358), false},
+    [7]={Vector(12510, 51.729401, 5172), false},
+    [8]={Vector(13230, 51.366901, 2210), false},
+    [9]={Vector(12652, 52.011086, 1630), false},
+    [10]={Vector(8502, 51.561283, 4790), false},
+    [11]={Vector(6272, 54.161331, 10152), false}
+}
+
+local GreenWards={
+    [1]={Vector(4770, 50.766403, 7130), false},
+    [2]={Vector(5166, -45.305595, 8520), false},
+    [3]={Vector(7004, 54.678485, 11366), false},
+    [4]={Vector(9322, 54.260986, 11440), false},
+    [5]={Vector(9974, 51.716484, 7798), false},
+    [6]={Vector(7076, 52.574959, 3118), false},
+    [7]={Vector(5548, 51.418839, 3532), false},
+    [8]={Vector(9830, 21.151115, 6474), false},
+    [9]={Vector(8156, 56.476799, 11794),false},
+    [10]={Vector(8432, -71.240601, 6474), false},
+    [11]={Vector(6524, -70.806824, 8296), false}
+}
 
 OnTick(function(myHero)
 
---[[if GetDistance(myHero, Vector(5548,51.418839,3532)) < 670 then
-	PrintChat("hi")
-end]]
+
+    local YellowWard = GetItemSlot(myHero, 3340)
+if Required.Req.SubReq7.WardGreen:Value() then
+    for i, v in ipairs(GreenWards) do
+        local dist = GetDistance(v[1], myHero)
+        if dist < 600 then
+            if YellowWard > 0 and CanUseSpell(myHero, YellowWard) == READY then
+                CastSkillShot(YellowWard, v[1])
+                v[2] = true
+            end
+        end
+    end
+end
+
+if Required.Req.SubReq7.WardYellow:Value() then
+    for i, v in ipairs(YellowWards) do
+        local dist = GetDistance(v[1], myHero)
+        if dist < 600 then
+            if YellowWard > 0 and CanUseSpell(myHero, YellowWard) == READY then
+                CastSkillShot(YellowWard, v[1])
+                v[2] = true
+            end
+        end
+    end
+end
+if Required.Req.SubReq7.WardReds:Value() then
+    for i, v in ipairs(RedWards) do
+        local dist = GetDistance(v[1], myHero)
+        if dist < 600 then
+            if YellowWard > 0 and CanUseSpell(myHero, YellowWard) == READY then
+                CastSkillShot(YellowWard, v[1])
+                v[2] = true
+            end
+        end
+    end
+end
+
+
+
+    local PinkWard = GetItemSlot(myHero, 2043)
+
+	--[[if Required.Req.SubReq7.WardGreen:Value() then
+--and GetDistance(Vector(MousePos), Vector(5548,51.418839,3532)) 
+--if GetDistance(Vector(5548,51.418839,3532), Vector(MousePos) then
+		if GetDistance(myHero, Vector(5548,51.418839,3532)) <= 670 then
+			if YellowWard > 0 and CanUseSpell(myHero, YellowWard) == READY then 
+				    CastSkillShot(YellowWard, Vector(5548,51.418839,3532))
+            end
+		end
+	end  ]]
     if Required.Req.ReqYes:Value() then
 
         OffensiveItemsActivator()
@@ -320,7 +411,32 @@ end]]
     end
 end)
 
+OnDeleteObj(function(object)
 
+        if GetObjectName(object):lower() == "yellowtrinket" then
+            for i, v in ipairs(GreenWards) do
+                if GetDistance(GetOrigin(object), v[1]) < 20 then
+                    v[2] = false
+                end
+            end
+        end
+
+        if GetObjectName(object):lower() == "yellowtrinket" then
+            for i, v in ipairs(YellowWards) do
+                if GetDistance(GetOrigin(object), v[1]) < 20 then
+                    v[2] = false
+                end
+            end
+        end
+
+        if GetObjectName(object):lower() == "yellowtrinket" then
+            for i, v in ipairs(RedWards) do
+                if GetDistance(GetOrigin(object), v[1]) < 20 then
+                    v[2] = false
+                end
+            end
+        end
+end)
 
 
 function SkillsLevelUp()
@@ -382,10 +498,8 @@ local SmiteToUse = true
                                     Required.Req.SubReq8("AutoSmite4", "Smite Baron", true)
                                     Required.Req.SubReq8("AutoSmite5", "Smite Dragon", true)
                                     Required.Req.SubReq8("AutoSmite6", "Smite Herald", true)]]
-if SmiteToUse == true then
-    if Required.Req.ReqYes:Value() then
-        if Required.Req.SubReq8.AutoSmite:Value() then
-            if CanUseSpell(myHero,SmiteMinion) == READY then
+	if SmiteToUse == true and Required.Req.ReqYes:Value() and Required.Req.SubReq8.AutoSmite:Value() and CanUseSpell(myHero,SmiteMinion) == READY then
+
                     if Dragon ~= nil and GetObjectName(Dragon) == "SRU_Dragon" and ValidTarget(Dragon, 750) and Required.Req.SubReq8.AutoSmite5:Value() then
                         if GetCurrentHP(Dragon) <= SmiteDamageOnMinion then
                             CastTargetSpell(Dragon,SmiteMinion)
@@ -411,10 +525,7 @@ if SmiteToUse == true then
                             CastTargetSpell(Blue,SmiteMinion)
                         end
                     end
-            end
-        end
-    end
-end
+	end
 end
 
 function OffensiveItemsActivator()
@@ -600,3 +711,32 @@ function DeffensiveItemsActivator()
 
 	end
 end
+
+
+function HiUser()
+        if GetGroup() == "Scripts Developer" then
+            PrintChat(string.format("<font color=\"#8327BF\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Support" or GetGroup() == "support" then
+            PrintChat(string.format("<font color=\"#0098ED\"><b>Welcome " ..GetUser().. " .</b></font>")) 
+        elseif GetGroup() == "Local Support" then
+            PrintChat(string.format("<font color=\"#33CCBB\"><b>Welcome " ..GetUser().. " .</b></font>")) 
+        elseif GetGroup() == "Contributor" or GetGroup() == "contributor" then
+            PrintChat(string.format("<font color=\"#FF69b4\"><b>Welcome " ..GetUser().. " .</b></font>")) 
+        elseif GetGroup() == "Administrators" or GetGroup() == "Administrator" or GetGroup() == "administratos" or GetGroup() == "administrator" then
+            PrintChat(string.format("<font color=\"#FF0000\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Moderator" or GetGroup() == "Moderators" or GetGroup() == "moderators" or GetGroup() == "moderator" then
+            PrintChat(string.format("<font color=\"#3010D0\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Donator" or GetGroup() == "Donators" or GetGroup() == "donators" or GetGroup() == "donator" then
+            PrintChat(string.format("<font color=\"#33CC33\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Subscriber" or GetGroup() == "Subscribers" or GetGroup() == "subscriber" or GetGroup() == "subscribers" then
+            PrintChat(string.format("<font color=\"#FF8C00\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Vip" or GetGroup() == "+Vip" then
+            PrintChat(string.format("<font color=\"#D3D300\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Member" or GetGroup() == "member" then
+            PrintChat(string.format("<font color=\"#707070\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        end
+end
+
+HiUser()
+
+PrintChat(string.format("<font color=\"#984DD1\"><b>Thanks for using Required Utilities </b></font>"))
