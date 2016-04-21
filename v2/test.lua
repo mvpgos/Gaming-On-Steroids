@@ -732,6 +732,8 @@ function HiUser()
             PrintChat(string.format("<font color=\"#FF8C00\"><b>Welcome " ..GetUser().. " .</b></font>"))
         elseif GetGroup() == "Vip" or GetGroup() == "+Vip" then
             PrintChat(string.format("<font color=\"#D3D300\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Member" or GetGroup() == "member" then
+            PrintChat(string.format("<font color=\"#707070\"><b>Welcome " ..GetUser().. " .</b></font>"))
         end
 end
 
