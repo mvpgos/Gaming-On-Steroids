@@ -1,4 +1,3 @@
-
 local ver = "0.9"
 
 function AutoUpdate(data)
@@ -250,8 +249,6 @@ if Required.Req.ReqYes:Value() then
         if Required.Req.SubReq4.DrawE:Value() then  DrawCircle(myHero.pos, GetCastRange(myHero, 2), 1, 5, ARGB(255, 84, 146, 227)) end
         if Required.Req.SubReq4.DrawR:Value() then  DrawCircle(myHero.pos, GetCastRange(myHero, 3), 1, 5, ARGB(255, 227, 115, 84)) end
     end
-
-    DrawCircle(myHero.pos, 670, 1, 5, ARGB(255, 227, 115, 84)) 
 
     if Required.Req.ReqYes:Value() then
         if Required.Req.SubReq2.Self:Value() then
