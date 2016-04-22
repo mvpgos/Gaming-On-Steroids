@@ -1,4 +1,5 @@
-local ver = "0.9"
+require 'DamageLib'
+local ver = "0.91"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -28,6 +29,10 @@ local Required = MenuConfig("REQ", "RequiredsUtility")
 Required:Menu("Req", "Required Utility")
                 Required.Req:Empty("Empty1", 0)
                 Required.Req:Boolean("ReqYes", "Enable Required utilities", true)
+                    Required.Req:SubMenu("dDmg", "dmg")
+                                    Required.Req.dDmg:Boolean("Ddmgs", "Damage", true)
+                    Required.Req:SubMenu("Jumps", "Jumping Spots")
+if GetObjectName(GetMyHero()) == "Riven" or GetObjectName(GetMyHero()) == "Nidalee" then Required.Req.Jumps:Boolean("JumpsEnable", "Enable Jump Spots", true) else Required.Req.Jumps:Boolean("JumpsEnable", "Enable Jump Spots", false) end
                     Required.Req:SubMenu("SubReq", "Auto Level")
                                     Required.Req.SubReq:Boolean("LevelUp", "Level Up Skills", true)
                                     Required.Req.SubReq:Slider("Start_Level", "Level to enable lvlUP", 1, 1, 17)
@@ -123,11 +128,108 @@ local LevelUpTable={
 [3]={_Q,_E,_W,_Q,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W}
 }
 
+    spellData = {
 
+        [_Q] = { dmg = function(source, target) return getdmg("Q",GetCurrentTarget(), myHero, 3) end},
+        [_W] = { dmg = function(source, target) return getdmg("W",GetCurrentTarget(), myHero, 3) end},
+        [_E] = { dmg = function(source, target) return getdmg("E",GetCurrentTarget(), myHero, 3) end},
+        [_R] = { dmg = function(source, target) return getdmg("R",GetCurrentTarget(), myHero, 3) end}
+    }
 
+    colors = { ARGB(255,223,255,14), ARGB(255,223,136,102), ARGB(255,223,85,248), ARGB(255,223,255,88) }
+    str = {[_Q] = "Q", [_W] = "W", [_E] = "E", [_R] = "R"}
 
 OnDraw(function(myHero)
-if Required.Req.ReqYes:Value() then
+    if Required.Req.ReqYes:Value() then
+
+    if Required.Req.dDmg.Ddmgs:Value() then
+        
+            local unit = GetCurrentTarget()
+            if ValidTarget(GetCurrentTarget()) and GetTeam(unit) ~= GetTeam(myHero) then
+                local barPos = GetHPBarPos(unit)
+                if barPos.x > 0 and barPos.y > 0 then
+                    local xDef = {}
+                    for slot = 0, 3 do
+                        xDef[slot] = CanUseSpell(myHero, slot) == 0 and CalcDamage(myHero, unit, 0, spellData[slot].dmg(myHero, unit)) or 0
+
+                    end
+                    local mhp = GetMaxHP(unit)
+                    local chp = GetCurrentHP(unit)
+                    local offset = 103 * (chp/mhp)
+                    for __, spell in pairs({"Q", "W", "E", "R"}) do
+                        if xDef[__-1] > 0 then
+                            local off = 103*(xDef[__-1]/mhp)
+                            local _ = 2*__
+                            DrawLine(barPos.x+10+offset-off, barPos.y-1, barPos.x+10+offset, barPos.y-1, 5, colors[__])
+                            DrawLine(barPos.x+10+offset-off, barPos.y-1, barPos.x+10+offset-off, barPos.y+10-10*_, 1, colors[__])
+                            DrawText(spell, 11, barPos.x+1+offset-off, barPos.y-15-10*_, colors[__])
+                            DrawText(""..math.round(xDef[__-1]), 10, barPos.x+12+offset-off, barPos.y-15-10*_, colors[__])
+                            offset = offset - off
+                            if (1+1) == 2 then YesInspired(myHero) else return --[[Maths are stupid, so am I]] end
+                        end
+                    end
+                end
+            end
+        
+    end
+
+if Required.Req.Jumps.JumpsEnable:Value() then
+    if GetDistance(Vector(11984, 51.729402, 4725), myHero) < 800 or GetDistance(Vector(11726, -71.240601, 4522), myHero) < 800 then
+        DrawCircle(11984, 51.729402, 4725, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(11726, -71.240601, 4522, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(9044, 52.618866, 4438), myHero) < 800 or GetDistance(Vector(9392, -71.240601, 4522), myHero) < 800 then
+        DrawCircle(9044, 52.618866, 4438, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(9392, -71.240601, 4522, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(9662, -70.199005, 3974), myHero) < 800 or GetDistance(Vector(9502, 62.610847, 3496), myHero) < 800 then
+        DrawCircle(9662, -70.199005, 3974, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(9502, 62.610847, 3496, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(7922, 50.505039, 5958), myHero) < 800 or GetDistance(Vector(8160, -71.240601, 6190), myHero) < 800 then
+        DrawCircle(7922, 50.505039, 5958, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(8160, -71.240601, 6190, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(7074, 58.172329, 5608), myHero) < 800 or GetDistance(Vector(7394, 52.470188, 5960), myHero) < 800 then
+        DrawCircle(7394, 52.470188, 5960, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(7074, 58.172329, 5608, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(6870, -70.691544, 8594), myHero) < 800 or GetDistance(Vector(7092, 52.872597, 8802), myHero) < 800 then
+        DrawCircle(7092, 52.872597, 8802, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(6870, -70.691544, 8594, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(3880, 51.885376, 7770), myHero) < 800 or GetDistance(Vector(3824, 51.690048, 7408), myHero) < 800 then
+        DrawCircle(3824, 51.690048, 7408, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(3880, 51.885376, 7770, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(4374, 48.743622, 8156), myHero) < 800 or GetDistance(Vector(4072, 50.868252, 7940), myHero) < 800 then
+        DrawCircle(4072, 50.868252, 7940, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(4374, 48.743622, 8156, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(3274, -64.528709, 10306), myHero) < 800 or GetDistance(Vector(2878, 54.325500, 10142), myHero) < 800 then
+        DrawCircle(3274, -64.528709, 10306, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(2878, 54.325500, 10142, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(5474, -71.240601, 10506), myHero) < 800 or GetDistance(Vector(5902, 55.003208, 10460), myHero) < 800 then
+        DrawCircle(5474, -71.240601, 10506, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(5902, 55.003208, 10460, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(6566, 53.846657, 11664), myHero) < 800 or GetDistance(Vector(6492, 56.476799, 12068), myHero) < 800 then
+        DrawCircle(6566, 53.846657, 11664, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(6492, 56.476799, 12068, 70, 2, 200, ARGB(255,114,225,252))
+    end
+    if GetDistance(Vector(11592, 63.734623, 8700), myHero) < 800 or GetDistance(Vector(11838, 50.307255, 8884), myHero) < 800 then
+        DrawCircle(11592, 63.734623, 8700, 70, 2, 200, ARGB(255,114,225,252))
+        DrawCircle(11838, 50.307255, 8884, 70, 2, 200, ARGB(255,114,225,252))
+    end
+end
+
+
+
+
+
+
+
 
     if Required.Req.SubReq7.Reds:Value() then 
         DrawCircle(8292, 50.1327870, 10208, 39, 3, 100, ARGB(255,245,61,61))
@@ -249,6 +351,8 @@ if Required.Req.ReqYes:Value() then
         if Required.Req.SubReq4.DrawE:Value() then  DrawCircle(myHero.pos, GetCastRange(myHero, 2), 1, 5, ARGB(255, 84, 146, 227)) end
         if Required.Req.SubReq4.DrawR:Value() then  DrawCircle(myHero.pos, GetCastRange(myHero, 3), 1, 5, ARGB(255, 227, 115, 84)) end
     end
+
+    -- DrawCircle(myHero.pos, 670, 1, 5, ARGB(255, 227, 115, 84)) 
 
     if Required.Req.ReqYes:Value() then
         if Required.Req.SubReq2.Self:Value() then
@@ -709,7 +813,12 @@ function DeffensiveItemsActivator()
 	end
 end
 
-
+function YesInspired(unit)
+        if unit == myHero then
+            Inspired = op
+        end
+    -- body
+end
 function HiUser()
         if GetGroup() == "Scripts Developer" then
             PrintChat(string.format("<font color=\"#8327BF\"><b>Welcome " ..GetUser().. " .</b></font>"))
