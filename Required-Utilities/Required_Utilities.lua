@@ -1,5 +1,5 @@
 require 'DamageLib'
-local ver = "0.91"
+local ver = "0.92"
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -13,7 +13,7 @@ GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Stero
 
 
 local s = "Developed by Required"
-local vr = "Current Version " ..ver.. " . 21/04/2016"
+local vr = "Current Version " ..ver.. " . 23/04/2016"
 local Champ = MyHeroName 
 textTable = {s,vr} 
 PrintChat(textTable[1])
@@ -100,11 +100,11 @@ if GetObjectName(GetMyHero()) == "Riven" or GetObjectName(GetMyHero()) == "Nidal
                                     Required.Req.SubReq6:Boolean("qN", "Get Q Skill name", false)
                                     Required.Req.SubReq6:Boolean("qR", "Get Q Range", false)
                                     Required.Req.SubReq6:Boolean("wN", "Get W Skill name", false)
-                                    Required.Req.SubReq6:Boolean("wR", "Get Q Range", false)
+                                    Required.Req.SubReq6:Boolean("wR", "Get W Range", false)
                                     Required.Req.SubReq6:Boolean("eN", "Get E Skill name", false)
-                                    Required.Req.SubReq6:Boolean("eR", "Get Q Range", false)
+                                    Required.Req.SubReq6:Boolean("eR", "Get E Range", false)
                                     Required.Req.SubReq6:Boolean("rN", "Get R Skill name", false)
-                                    Required.Req.SubReq6:Boolean("rR", "Get Q Range", false)
+                                    Required.Req.SubReq6:Boolean("rR", "Get R Range", false)
                                     Required.Req.SubReq6:Empty("Tdesee", 0)
                                     Required.Req.SubReq6:Boolean("MapId", "Print Map ID", false)
                                     Required.Req.SubReq6:Boolean("MobsID", "Draw Mobs names", false)
@@ -136,7 +136,7 @@ local LevelUpTable={
         [_R] = { dmg = function(source, target) return getdmg("R",GetCurrentTarget(), myHero, 3) end}
     }
 
-    colors = { ARGB(255,223,255,14), ARGB(255,223,136,102), ARGB(255,223,85,248), ARGB(255,223,255,88) }
+    colors = { ARGB(255,223,255,14), ARGB(255,79,209,192), ARGB(255,223,85,248), ARGB(255,223,255,88) }
     str = {[_Q] = "Q", [_W] = "W", [_E] = "E", [_R] = "R"}
 
 OnDraw(function(myHero)
