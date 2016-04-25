@@ -1,6 +1,14 @@
 require 'DamageLib'
-local ver = "1.02 "
+local ver = "1.03 "
 
+function AutoUpdate(data)
+    if tonumber(data) > tonumber(ver) then
+        PrintChat("New Version Found " .. data)
+        PrintChat("Downloading update, please wait...")
+        DownloadFileAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Required-Utilities/Required_Utilities.lua", SCRIPT_PATH .. "Required_Utilities.lua", function() PrintChat(string.format("<font color=\"#FC5743\"><b>Script Downloaded succesfully. please 2x f6</b></font>")) return end)
+    end
+end
+GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Required-Utilities/Required_Utilities.version", AutoUpdate)
 
 
 local ReqLoader = MenuConfig("Rql", "RequiredsLoader")
@@ -110,6 +118,7 @@ Required.Req:SubMenu("SubReq8", "Auto Smite")
                                     Required.Req.SubReq8:Boolean("AutoSmite4", "Smite Baron", true)
                                     Required.Req.SubReq8:Boolean("AutoSmite5", "Smite Dragon", true)
                                     Required.Req.SubReq8:Boolean("AutoSmite6", "Smite Herald", true)
+                                    Required.Req.SubReq8:Boolean("AutoSmite7", "Smite Vilemaw", true)
 end
 if ReqLoader.Load.LoadSmite:Value() then   
     AutoSmiteMenu()
@@ -627,6 +636,9 @@ end
                 if GetObjectName(minion) == "SRU_Baron" then
                     Baron = minion
                 end
+                if GetObjectName(minion) == "TT_Spiderboss" then
+                    Vilemaw = minion
+                end
             end 
         end
 
@@ -743,6 +755,11 @@ local SmiteToUse = true
                     if Blue ~= nil and GetObjectName(Blue) == "SRU_Blue" and ValidTarget(Blue, 750) and Required.Req.SubReq8.AutoSmite2:Value() then
                         if GetCurrentHP(Blue) <= SmiteDamageOnMinion then
                             CastTargetSpell(Blue,SmiteMinion)
+                        end
+                    end
+                    if Vilemaw ~= nil and GetObjectName(Vilemaw) == "TT_Spiderboss" and ValidTarget(Vilemaw, 750) and Required.Req.SubReq7.AutoSmite3:Value() then
+                        if GetCurrentHP(Vilemaw) <= SmiteDamageOnMinion then
+                            CastTargetSpell(Vilemaw,SmiteMinion)
                         end
                     end
     end
