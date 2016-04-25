@@ -1,5 +1,5 @@
 require 'DamageLib'
-local ver = "1.03 "
+local ver = "1.04 "
 
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
@@ -235,8 +235,15 @@ end
         if ReqLoader.Load.LoadDamage:Value() then
             DrawDamage1()
         end
+function JumpingSpots1()
 
-
+    Required.Req:SubMenu("Jumps", "Jumping Spots")
+    if GetObjectName(GetMyHero()) == "Riven" or GetObjectName(GetMyHero()) == "Nidalee" then Required.Req.Jumps:Boolean("JumpsEnable", "Enable Jump Spots", true) else Required.Req.Jumps:Boolean("JumpsEnable", "Enable Jump Spots", false) end
+    
+end
+if ReqLoader.Load.LoadJumpSpots:Value() then
+    JumpingSpots1()
+end
 function JumpingSpots()
     if ReqLoader.Load.LoadJumpSpots:Value() then    
         if Required.Req.Jumps.JumpsEnable:Value() then
@@ -292,12 +299,7 @@ function JumpingSpots()
     end
 end
 
-function JumpingSpots1()
 
-    Required.Req:SubMenu("Jumps", "Jumping Spots")
-    if GetObjectName(GetMyHero()) == "Riven" or GetObjectName(GetMyHero()) == "Nidalee" then Required.Req.Jumps:Boolean("JumpsEnable", "Enable Jump Spots", true) else Required.Req.Jumps:Boolean("JumpsEnable", "Enable Jump Spots", false) end
-    
-end
 
         
 
