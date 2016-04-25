@@ -1,7 +1,7 @@
 require 'DamageLib'
 
 
-local ver = "1.04 "
+local ver = "1.06 "
 
 local res = GetResolution()
 
