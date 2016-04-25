@@ -1,7 +1,7 @@
 require 'DamageLib'
 
 
-local ver = "1.06 "
+local ver = "1.04 "
 
 local res = GetResolution()
 
@@ -585,9 +585,9 @@ function AutoUpdate(data)
       DrawLine(w, h1/1.05, w, h2/1.97, w/1.75, ARGB(120,205,0,0))
       DrawLine(w, h1, w, h2/1.97, w/1.75, ARGB(120,50,0,0))
       DrawText(tostring("Required Utilities Changelog"), (res.y * .028) - 270, (res.x/2.4) - 30, (res.y*.18-10), ARGB(255, 0 , 255, 255))
-      DrawText(tostring("Ver 1.04:"), res.y*.015, (res.x/2.65), (res.y*.210), ARGB(225, 225, 175, 0))
-      DrawText(tostring("               Minor Fixes"), res.y*.015, (res.x/2.65), (res.y*.225), ARGB(255, 255, 255, 255))
-      DrawText(tostring("Ver 1.03"), res.y*.015, (res.x/2.65), (res.y*.240), ARGB(225, 225, 175, 0))
+      DrawText(tostring("Ver 1.06:"), res.y*.015, (res.x/2.65), (res.y*.210), ARGB(225, 225, 175, 0))
+      DrawText(tostring("               Added Changelog Screen"), res.y*.015, (res.x/2.65), (res.y*.225), ARGB(255, 255, 255, 255))
+      DrawText(tostring("Ver 1.05"), res.y*.015, (res.x/2.65), (res.y*.240), ARGB(225, 225, 175, 0))
       DrawText(tostring("               Fixed Auto Level, Auto Smite."), res.y*.015, (res.x/2.65), (res.y*.255), ARGB(255, 255, 255, 255))
       DrawText(tostring(""), res.y*.015, (res.x/2.65), (res.y*.270), ARGB(255, 255, 255, 255))
       DrawText(tostring(""), res.y*.015, (res.x/2.65), (res.y*.300), ARGB(255, 255, 255, 255))
