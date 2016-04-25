@@ -1,5 +1,5 @@
 require 'DamageLib'
-local ver = "1.01 "
+local ver = "1.02 "
 
 
 
@@ -422,8 +422,15 @@ function WardMenu()
                                     Required.Req.SubReq7:Boolean("Greens", "Show less important wards", true)
                                     Required.Req.SubReq7:Boolean("WardGreen", "Ward Green circles", false)
 end
-
+function SkillsLevelUp()
+    Required.Req:SubMenu("SubReq", "Auto Level")
+                                    Required.Req.SubReq:Boolean("LevelUp", "Level Up Skills", true)
+                                    Required.Req.SubReq:Slider("Start_Level", "Level to enable lvlUP", 1, 1, 17)
+                                    Required.Req.SubReq:DropDown("autoLvl", "Skill order", 1, {"Q-W-E","Q-W-Q","Q-E-W",})
+                                    Required.Req.SubReq:Boolean("Humanizer", "Enable Level Up Humanizer", true)
+end
 if ReqLoader.Load.LoadWard:Value() then
+
     WardMenu()
 end
 
@@ -437,7 +444,9 @@ end
 
 
 
-
+           if ReqLoader.Load.LoadLevelUP:Value() then
+                SkillsLevelUp()
+            end
 OnDraw(function(myHero)
         if ReqLoader.Load.LoadInfo:Value() then
             PersonalInfo() 
@@ -628,9 +637,7 @@ if ReqLoader.Load.LoadSkin:Value() then
 end
 
         
-           if ReqLoader.Load.LoadLevelUP:Value() then
-                SkillsLevelUp()
-            end
+
 
     end
 end)
@@ -673,13 +680,7 @@ OnCreateObj(OnCreateObjCallback) ]]
 --OnGainVision(function(unit)
     
 
-function SkillsLevelUp()
 
-    Required.Req:SubMenu("SubReq", "Auto Level")
-                                    Required.Req.SubReq:Boolean("LevelUp", "Level Up Skills", true)
-                                    Required.Req.SubReq:Slider("Start_Level", "Level to enable lvlUP", 1, 1, 17)
-                                    Required.Req.SubReq:DropDown("autoLvl", "Skill order", 1, {"Q-W-E","Q-W-Q","Q-E-W",})
-                                    Required.Req.SubReq:Boolean("Humanizer", "Enable Level Up Humanizer", true)
 
     local LevelUpTable={
 [1]={_Q,_W,_E,_Q,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W},
@@ -696,7 +697,7 @@ function SkillsLevelUp()
             LevelSpell(LevelUpTable[Required.Req.SubReq.autoLvl:Value()][GetLevel(myHero)-GetLevelPoints(myHero)+1])
         end
     end
-end
+
 
 
 
