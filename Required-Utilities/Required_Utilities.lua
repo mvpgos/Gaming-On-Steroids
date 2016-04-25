@@ -1,23 +1,7 @@
 require 'DamageLib'
-local ver = "1.00 "
-
-function AutoUpdate(data)
-    if tonumber(data) > tonumber(ver) then
-        PrintChat("New Version Found " .. data)
-        PrintChat("Downloading update, please wait...")
-        DownloadFileAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Required-Utilities/Required_Utilities.lua", SCRIPT_PATH .. "Required_Utilities.lua", function() PrintChat(string.format("<font color=\"#FC5743\"><b>Script Downloaded succesfully. please 2x f6</b></font>")) return end)
-    end
-end
-GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Required-Utilities/Required_Utilities.version", AutoUpdate)
+local ver = "1.01 "
 
 
-
-local s = "Developed by Required"
-local vr = "Current Version " ..ver.. "Beta   24/04/2016"
-local Champ = MyHeroName 
-textTable = {s,vr} 
-PrintChat(textTable[1])
-PrintChat(textTable[2])
 
 local ReqLoader = MenuConfig("Rql", "RequiredsLoader")
 
@@ -128,7 +112,7 @@ Required.Req:SubMenu("SubReq8", "Auto Smite")
                                     Required.Req.SubReq8:Boolean("AutoSmite6", "Smite Herald", true)
 end
 if ReqLoader.Load.LoadSmite:Value() then   
-    AutoItemMenu()
+    AutoSmiteMenu()
 end
 function AutoItemMenu()
 Required.Req:SubMenu("SubReq9", "Item Activator") 
@@ -721,9 +705,9 @@ function AutoSmite()
 
 local SmiteToUse = true
 
-    if GetCastName(myHero,SUMMONER_1):lower():find("summonersmite") or GetCastName(myHero,SUMMONER_1):lower():find("S5_SummonerSmitePlayerGanker") or GetCastName(myHero,SUMMONER_1):lower():find("S5_SummonerSmiteDuel")  then
+    if GetCastName(myHero,SUMMONER_1):lower():find("summonersmite") or GetCastName(myHero,SUMMONER_1):lower():find("s5_summonersmiteplayerganker") or GetCastName(myHero,SUMMONER_1):lower():find("s5_summonersmiteduel")  then
                 SmiteMinion = SUMMONER_1
-            elseif GetCastName(myHero,SUMMONER_2):lower():find("summonersmite") or GetCastName(myHero,SUMMONER_2):lower():find("S5_SummonerSmitePlayerGanker") or GetCastName(myHero,SUMMONER_2):lower():find("S5_SummonerSmiteDuel")  then
+            elseif GetCastName(myHero,SUMMONER_2):lower():find("summonersmite") or GetCastName(myHero,SUMMONER_2):lower():find("s5_summonersmiteplayerganker") or GetCastName(myHero,SUMMONER_2):lower():find("s5_summonersmiteduel")  then
                 SmiteMinion = SUMMONER_2
             else return 
     end
