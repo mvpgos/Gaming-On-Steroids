@@ -1,5 +1,8 @@
 local ver = "1.05 "
-
+local res = GetResolution()
+  function OnScreen(x, y)
+      return x > 0 and x <= res.x and y > 0 and y <= res.y
+  end
 function AutoUpdate(data)
     if tonumber(data) > tonumber(ver) then
         PrintChat("New Version Found " .. data)
@@ -8,13 +11,12 @@ function AutoUpdate(data)
    local w, h1, h2, size = (res.x*0.70), (res.y*.15), (res.y*.9), res.y*.02
       DrawLine(w, h1/1.05, w, h2/1.97, w/1.75, ARGB(120,205,0,0))
       DrawLine(w, h1, w, h2/1.97, w/1.75, ARGB(120,50,0,0))
-      DrawText(tostring("SkinChanger Changelog"), res.y * .028, (res.x/2.4), (res.y*.18), ARGB(255, 0 , 255, 255))
+      DrawText(tostring("Required Utilities Changelog"), res.y * .028, (res.x/2.4), (res.y*.18), ARGB(255, 0 , 255, 255))
       DrawText(tostring("Ver 1.04:"), res.y*.015, (res.x/2.65), (res.y*.210), ARGB(225, 225, 175, 0))
       DrawText(tostring("               Minor Fixes"), res.y*.015, (res.x/2.65), (res.y*.225), ARGB(255, 255, 255, 255))
       DrawText(tostring("Ver 1.03"), res.y*.015, (res.x/2.65), (res.y*.240), ARGB(225, 225, 175, 0))
       DrawText(tostring("               Fixed Auto Level, Auto Smite."), res.y*.015, (res.x/2.65), (res.y*.255), ARGB(255, 255, 255, 255))
       DrawText(tostring(""), res.y*.015, (res.x/2.65), (res.y*.270), ARGB(255, 255, 255, 255))
-      DrawText(tostring("              ())__CRAYON___)) >"), res.y*.015, (res.x/2.65), (res.y*.285), ARGB(255, 255, 255, 255))
       DrawText(tostring(""), res.y*.015, (res.x/2.65), (res.y*.300), ARGB(255, 255, 255, 255))
       DrawText(tostring("TODO:"), res.y*.015, (res.x/2.65), (res.y*.315), ARGB(225, 225, 175, 0))
       DrawText(tostring("             Add Model Changes."), res.y*.015, (res.x/2.65), (res.y*.330), ARGB(255, 255, 255, 255))
@@ -27,7 +29,7 @@ function AutoUpdate(data)
       FillRect(w1+10, (res.y/2)-103, 80, 30, ARGB(255,0,255,255))
       DrawText(tostring("2x F6"),size, (res.x/2)-size+10, (res.y/2)-100, ARGB(255,0, 0, 0)) 
       end)
-	DownloadFileAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Required-Utilities/Required_Utilities.lua", SCRIPT_PATH .. "RequiredUtilities.lua", function() PrintChat(string.format("<font color=\"#FC5743\"><b>Script Downloaded succesfully. please 2x f6</b></font>")) return end)
+  DownloadFileAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/TestingStuff/MDfTest.lua", SCRIPT_PATH .. "MDfTest.lua", function() PrintChat(string.format("<font color=\"#FC5743\"><b>Script Downloaded succesfully. please 2x f6</b></font>")) return end)
     end
 end
-GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Required-Utilities/Required_Utilities.version", AutoUpdate)
+GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/TestingStuff/Test.version", AutoUpdate)
