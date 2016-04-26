@@ -3,10 +3,10 @@
     if tonumber(data) > tonumber(ver) then
         PrintChat("New Version Found " .. data)
         PrintChat("Downloading update, please wait...")
-        DownloadFileAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Activator/Activator.lua", SCRIPT_PATH .. "Required_ItemSpellActivator.lua", function() PrintChat(string.format("<font color=\"#FC5743\"><b>Script Downloaded succesfully. please 2x f6</b></font>")) return end)
+        DownloadFileAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Champions/Common/Alistar/AlistarReborn.lua", SCRIPT_PATH .. "AlistarReborn.lua", function() PrintChat(string.format("<font color=\"#FC5743\"><b>Script Downloaded succesfully. please 2x f6</b></font>")) return end)
     end
     end
-    GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Activator/Activator.version", AutoUpdate)
+    GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/Champions/Common/Alistar/AlistarReborn.version", AutoUpdate)
 
 
 
@@ -250,7 +250,30 @@ Heal()
     end
 end)
 
-  
+function HiUser()
+        if GetGroup() == "Scripts Developer" then
+            PrintChat(string.format("<font color=\"#8327BF\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Support" or GetGroup() == "support" then
+            PrintChat(string.format("<font color=\"#0098ED\"><b>Welcome " ..GetUser().. " .</b></font>")) 
+        elseif GetGroup() == "Local Support" then
+            PrintChat(string.format("<font color=\"#33CCBB\"><b>Welcome " ..GetUser().. " .</b></font>")) 
+        elseif GetGroup() == "Contributor" or GetGroup() == "contributor" then
+            PrintChat(string.format("<font color=\"#FF69b4\"><b>Welcome " ..GetUser().. " .</b></font>")) 
+        elseif GetGroup() == "Administrators" or GetGroup() == "Administrator" or GetGroup() == "administratos" or GetGroup() == "administrator" then
+            PrintChat(string.format("<font color=\"#FF0000\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Moderator" or GetGroup() == "Moderators" or GetGroup() == "moderators" or GetGroup() == "moderator" then
+            PrintChat(string.format("<font color=\"#3010D0\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Donator" or GetGroup() == "Donators" or GetGroup() == "donators" or GetGroup() == "donator" then
+            PrintChat(string.format("<font color=\"#33CC33\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Subscriber" or GetGroup() == "Subscribers" or GetGroup() == "subscriber" or GetGroup() == "subscribers" then
+            PrintChat(string.format("<font color=\"#FF8C00\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Vip" or GetGroup() == "+Vip" then
+            PrintChat(string.format("<font color=\"#D3D300\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        elseif GetGroup() == "Member" or GetGroup() == "member" then
+            PrintChat(string.format("<font color=\"#707070\"><b>Welcome " ..GetUser().. " .</b></font>"))
+        end
+end
 
+HiUser()
 
 
