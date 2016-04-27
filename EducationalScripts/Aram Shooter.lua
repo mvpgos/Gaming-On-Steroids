@@ -34,9 +34,9 @@ require("OpenPredict") -- Needed library for predictions
 				AramMenu.Options:Empty("s", 0)
 
 				AramMenu.Options:Boolean("Drawing", "Enable Drawing", true)
-        		AramMenu.Options:ColorPick(Mark.."c", "Draw Color", {255, 25, 155, 175}) -- color table where user can choose drawing color
+        		        AramMenu.Options:ColorPick(Mark.."c", "Draw Color", {255, 25, 155, 175}) -- color table where user can choose drawing color
 		elseif not Found then															 -- if user has not Mark Summoner, this menu will appear
-			    AramMenu:SubMenu("NoOptions", "Mark Summoner not found")
+			        AramMenu:SubMenu("NoOptions", "Mark Summoner not found")
 				AramMenu.NoOptions:Info("n", "Mark Summoner not found")
 		end 
 
