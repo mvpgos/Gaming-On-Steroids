@@ -17,14 +17,14 @@ require("OpenPredict") -- Needed library for predictions
 
 	Found = GetCastName(myHero, SUMMONER_1):lower() == "summonersnowball" or GetCastName(myHero, SUMMONER_2):lower() == "summonersnowball" -- check if Mark summoner was taken
 
-	if GetCastName(myHero, SUMMONER_1):lower() == "summonersnowball" then   		--
-		Mark = SUMMONER_1															--
-	elseif																			-- This lines are to check where do we have Mark Summoner 
-		GetCastName(myHero, SUMMONER_2):lower() == "summonersnowball" then			--
-		Mark = SUMMONER_2															--
-	end 																			--
+	if GetCastName(myHero, SUMMONER_1):lower() == "summonersnowball" then  --This lines are to check where do we have Mark Summoner 
+		Mark = SUMMONER_1															
+	elseif																			
+		GetCastName(myHero, SUMMONER_2):lower() == "summonersnowball" then			
+		Mark = SUMMONER_2															
+	end 																			
 
-		local AramMenu = MenuConfig("Sn", "Requireds Aram Shooter")					-- Menu in which the following submenu will be indexed
+		local AramMenu = MenuConfig("Sn", "Requireds Aram Shooter")	-- Menu in which the following submenu will be indexed
 		if Found then
 			AramMenu:SubMenu("Options", "Options")
 				AramMenu.Options:Boolean("Enabled","Enable Auto Mark", true)        
