@@ -19,17 +19,11 @@ ARAM = GetMapID() -- Current Map ID (Howling Abyss) -- We call ARAM to the check
 
 	if not ARAM == 12 then return end -- if current map is not HOWLING ABYSS then script will not load (12 ID Stands for ARAM MAP)
 
-	Found = GetCastName(myHero, SUMMONER_1):lower() == "summonersnowball" or GetCastName(myHero, SUMMONER_2):lower() == "summonersnowball" -- check if Mark summoner was taken
-	-- Found is the check for Mark summoner
-	if GetCastName(myHero, SUMMONER_1):lower() == "summonersnowball" then  --This lines are to check where do we have Mark Summoner 
-		Mark = SUMMONER_1 -- if Mark is in Summoner 1 , Mark will get linked to Summoner 1												
-	elseif																			
-		GetCastName(myHero, SUMMONER_2):lower() == "summonersnowball" then			
-		Mark = SUMMONER_2  -- if Mark is in Summoner 2 , Mark will get linked to Summoner 2													
-	end 																			
+	Mark = GetCastName(myHero, SUMMONER_1):lower() == "summonersnowball" or GetCastName(myHero, SUMMONER_2):lower() == "summonersnowball" -- check if Mark summoner was taken
+	-- if Mark is in Summoner 1 , Mark will get linked to Summoner 1 or Summoner 2
 
 	local AramMenu = MenuConfig("Sn", "Requireds Aram Shooter")	-- Menu in which the following submenu will be indexed
-	if Found then  -- If user has not Mark, this will not load
+	if Mark then  -- If user has not Mark, this will not load
 		AramMenu:SubMenu("Options", "Options")
 			AramMenu.Options:Boolean("Enabled","Enable Auto Mark", true)        
 			AramMenu.Options:Slider("SliderEnabled","Range for Mark", 1600, 400, 1600) -- 1600 default Value, 400 minimum, 1600 max value
@@ -37,19 +31,19 @@ ARAM = GetMapID() -- Current Map ID (Howling Abyss) -- We call ARAM to the check
 			AramMenu.Options:Empty("s", 0)
 			AramMenu.Options:Boolean("Drawing", "Enable Drawing", true)
         	        AramMenu.Options:ColorPick(Mark.."c", "Draw Color", {255, 25, 155, 175}) -- color table where user can choose drawing color
-	elseif not Found then-- if user has not Mark Summoner, this menu will appear
+	elseif not Mark then-- if user has not Mark Summoner, this menu will appear
 			AramMenu:SubMenu("NoOptions", "Mark Summoner not found")
 			AramMenu.NoOptions:Info("n", "Mark Summoner not found")
 	end 
 
-	OnTick(function()
-		MarkInfo = { speed = math.huge, width = math.huge, range = AramMenu.Options.SliderEnabled:Value() } -- Info needed for Prediction
+	OnTick(function() --delay of the spell / speed of the spell / width of the spell / range of the spell
+		MarkInfo = { delay = 0.25, speed = 1500, width = 50, range = AramMenu.Options.SliderEnabled:Value() } -- Info needed for Prediction
 		MarkPred = GetPrediction(GetCurrentTarget(), MarkInfo)
 
 		if AramMenu.Options.En2:Value() and AramMenu.Options.Enabled:Value() then -- if Enable Auto Mark and Activate Dash are ON, this will go on
 			if MarkPred and MarkPred.hitChance >= 0.35 and not MarkPred:mCollision(1) then
 		    		CastSkillShot(Mark, MarkPred.castPos)
-		    		if Mark == READY then CastSpell(Mark) end 
+		    		if IsReady(Mark) then CastSpell(Mark) end
 			end
 		elseif not AramMenu.Options.En2:Value() == true and AramMenu.Options.Enabled:Value() then -- if only Auto Mark is ON, this will go on
 			if MarkPred and MarkPred.hitChance >= 0.35 and not MarkPred:mCollision(1) then
