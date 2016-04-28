@@ -36,7 +36,7 @@ ARAM = GetMapID() -- Current Map ID (Howling Abyss) -- We call ARAM to the check
 			AramMenu.Options:Boolean("En2", "Activate Dash", true)
 			AramMenu.Options:Empty("s", 0)
 			AramMenu.Options:Boolean("Drawing", "Enable Drawing", true)
-        	AramMenu.Options:ColorPick(Mark.."c", "Draw Color", {255, 25, 155, 175}) -- color table where user can choose drawing color
+        	        AramMenu.Options:ColorPick(Mark.."c", "Draw Color", {255, 25, 155, 175}) -- color table where user can choose drawing color
 	elseif not Found then-- if user has not Mark Summoner, this menu will appear
 			AramMenu:SubMenu("NoOptions", "Mark Summoner not found")
 			AramMenu.NoOptions:Info("n", "Mark Summoner not found")
@@ -48,13 +48,13 @@ ARAM = GetMapID() -- Current Map ID (Howling Abyss) -- We call ARAM to the check
 
 		if AramMenu.Options.En2:Value() and AramMenu.Options.Enabled:Value() then -- if Enable Auto Mark and Activate Dash are ON, this will go on
 			if MarkPred and MarkPred.hitChance >= 0.35 and not MarkPred:mCollision(1) then
-		    	CastSkillShot(Mark, MarkPred.castPos)
-		    	if Mark == READY then CastSpell(Mark) end 
+		    		CastSkillShot(Mark, MarkPred.castPos)
+		    		if Mark == READY then CastSpell(Mark) end 
 			end
 		elseif not AramMenu.Options.En2:Value() == true and AramMenu.Options.Enabled:Value() then -- if only Auto Mark is ON, this will go on
 			if MarkPred and MarkPred.hitChance >= 0.35 and not MarkPred:mCollision(1) then
-		    	CastSkillShot(Mark, MarkPred.castPos)
-		    end
+		    		CastSkillShot(Mark, MarkPred.castPos)
+		    	end
 		end
 	end)
 
