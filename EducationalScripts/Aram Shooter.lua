@@ -1,4 +1,4 @@
-    local vers = "0.1"
+    local vers = "0.11"
     function AutoUpdate(data)
 	    if tonumber(data) > tonumber(vers) then
 	        PrintChat("New Version Found " .. data)
