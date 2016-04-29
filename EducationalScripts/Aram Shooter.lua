@@ -37,17 +37,18 @@ ARAM = GetMapID() -- Current Map ID (Howling Abyss) -- We call ARAM to the check
 	end 
 
 	OnTick(function() --delay of the spell / speed of the spell / width of the spell / range of the spell
+		local target = GetCurrentTarget() 
 		MarkInfo = { delay = 0.25, speed = 1500, width = 50, range = AramMenu.Options.SliderEnabled:Value() } -- Info needed for Prediction
 		MarkPred = GetPrediction(GetCurrentTarget(), MarkInfo)
 
 		if AramMenu.Options.En2:Value() and AramMenu.Options.Enabled:Value() then -- if Enable Auto Mark and Activate Dash are ON, this will go on
 			if MarkPred and MarkPred.hitChance >= 0.35 and not MarkPred:mCollision(1) then
-		    		CastSkillShot(Mark, MarkPred.castPos)
+		    		CastSkillShot(Mark, target)
 		    		if IsReady(Mark) then CastSpell(Mark) end
 			end
 		elseif not AramMenu.Options.En2:Value() == true and AramMenu.Options.Enabled:Value() then -- if only Auto Mark is ON, this will go on
 			if MarkPred and MarkPred.hitChance >= 0.35 and not MarkPred:mCollision(1) then
-		    		CastSkillShot(Mark, MarkPred.castPos)
+		    		CastSkillShot(Mark, target)
 		    	end
 		end
 	end)
