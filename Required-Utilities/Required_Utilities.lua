@@ -1,7 +1,7 @@
 require 'DamageLib'
 
 
-local ver = "1.06 "
+local ver = "1.07 "
 
 local res = GetResolution()
 
@@ -458,6 +458,22 @@ end
            if ReqLoader.Load.LoadLevelUP:Value() then
                 SkillsLevelUp()
             end
+           local LevelUpTable={
+        [1]={_Q,_W,_E,_Q,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W},
+
+        [2]={_Q,_W,_Q,_E,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W},
+
+        [3]={_Q,_E,_W,_Q,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W}
+        }
+    function AutoLevel()
+        if Required.Req.SubReq.LevelUp:Value() and GetLevelPoints(myHero) >= 1 and GetLevel(myHero) >= Required.Req.SubReq.Start_Level:Value() then
+            if Required.Req.SubReq.Humanizer:Value() then
+            DelayAction(function() LevelSpell(LevelUpTable[Required.Req.SubReq.autoLvl:Value()][GetLevel(myHero)-GetLevelPoints(myHero)+1]) end, math.random(0.3286,1.33250))
+            else
+            LevelSpell(LevelUpTable[Required.Req.SubReq.autoLvl:Value()][GetLevel(myHero)-GetLevelPoints(myHero)+1])
+            end
+        end
+    end
 OnDraw(function(myHero)
         if ReqLoader.Load.LoadInfo:Value() then
             PersonalInfo() 
@@ -473,6 +489,9 @@ OnDraw(function(myHero)
         end
         if ReqLoader.Load.LoadWard:Value() then
             AutoWard()
+        end
+        if ReqLoader.Load.LoadLevelUP:Value() then
+            AutoLevel()
         end
 
 
@@ -723,28 +742,6 @@ OnCreateObj(OnCreateObjCallback) ]]
 
 --OnGainVision(function(unit)
     
-
-
-
-    local LevelUpTable={
-[1]={_Q,_W,_E,_Q,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W},
-
-[2]={_Q,_W,_Q,_E,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W},
-
-[3]={_Q,_E,_W,_Q,_Q,_R,_Q,_E,_Q,_E,_R,_E,_E,_W,_W,_R,_W,_W}
-}
-
-    if Required.Req.SubReq.LevelUp:Value() and GetLevelPoints(myHero) >= 1 and GetLevel(myHero) >= Required.Req.SubReq.Start_Level:Value() then
-        if Required.Req.SubReq.Humanizer:Value() then
-            DelayAction(function() LevelSpell(LevelUpTable[Required.Req.SubReq.autoLvl:Value()][GetLevel(myHero)-GetLevelPoints(myHero)+1]) end, math.random(0.3286,1.33250))
-        else
-            LevelSpell(LevelUpTable[Required.Req.SubReq.autoLvl:Value()][GetLevel(myHero)-GetLevelPoints(myHero)+1])
-        end
-    end
-
-
-
-
 
 function AutoSmite()
 
