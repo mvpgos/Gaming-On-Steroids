@@ -1,5 +1,16 @@
-local version = "0.1"
-local HpMenu = MenuConfig("Minion HP: Version: "..version.."", "Requireds Minion HP Drawing")
+local ver = "0.1"
+
+
+function AutoUpdate(data)
+    if tonumber(data) > tonumber(ver) then
+        PrintChat("New Version Found " .. data)
+        PrintChat("Downloading update, please wait...")
+        DownloadFileAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/MinionHP/MinionHP.lua", SCRIPT_PATH .. "MinionHP.lua", function() PrintChat(string.format("<font color=\"#FC5743\"><b>Script Downloaded succesfully. please 2x f6</b></font>")) return end)
+    end
+end
+GetWebResultAsync("https://raw.githubusercontent.com/RequiredGoS/Gaming-On-Steroids/master/MinionHP/MinionHP.version", AutoUpdate)
+
+local HpMenu = MenuConfig("Minion HP: Version: "..ver.."", "Requireds Minion HP Drawing")
 
 HpMenu:SubMenu("sel", "Drawings")
 	HpMenu.sel:Boolean("Enabled", "Enable HP Drawings", true)
