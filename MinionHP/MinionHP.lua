@@ -1,4 +1,4 @@
-local ver = "0.1"
+local ver = "0.11"
 
 
 function AutoUpdate(data)
@@ -22,7 +22,7 @@ HpMenu:SubMenu("sel", "Drawings")
 OnDraw(function()
 	if HpMenu.sel.Enabled:Value() then
 		for i,minion in pairs(minionManager.objects) do
-			if GetTeam(minion) ~= myHero.team then
+			if GetTeam(minion) ~= myHero.team and not minion.dead then
 				if HpMenu.sel.select.mcr:Value() then
 					if GetObjectName(minion) == "SRU_ChaosMinionRanged" then
 						mcr = minion
