@@ -1164,7 +1164,7 @@ end
 		local Ticker = GetTickCount()
 		local global_ticks = 0
 
-		if NocturneMenu.AutoSmite.dontUse:Value() then
+		if Settings.AutoSmiteQ.onSmite:Value() then
 			if (global_ticks + 250) < Ticker then
 				if smiteON == true then
 					smiteON = false
@@ -1712,7 +1712,7 @@ end
 		local Ticker = GetTickCount()
 		local global_ticks = 0
 
-		if NocturneMenu.AutoSmite.dontUse:Value() then
+		if Settings.AutoSmiteQ.onSmite:Value() then
 			if (global_ticks + 250) < Ticker then
 				if smiteON == true then
 					smiteON = false
